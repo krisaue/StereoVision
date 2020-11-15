@@ -86,7 +86,7 @@ loadImgs = True
 extractFeatures = False
 matchFeat = False
 rectImg = True
-SGM123 = False
+SGM123 = True
 testing = False
 
 
@@ -111,19 +111,33 @@ if __name__ == "__main__":
         plt.imshow(img3)
         plt.show()
     if rectImg:
-        img_size = [889,1095]
+        img_size = [1223,1023]
+
+        
         R1,R2,P1,P2,roi_l,roi_r = rectifyImage(c_l_intr_org,c_r_intr_org,c_l_dist,c_r_dist,img_size)
         
-        map1_l,map2_l = cv.initUndistortRectifyMap(c_l_intr_org,c_l_dist,R1,P1,(img_size[0],img_size[1]),cv.CV_32FC2)
+        print("R1:",R1)
+        #print("R2:",R2)
+        print("P1:",P1)
+        #print("P2:",P2)
+        
+        print("cam matrix: ",c_l_intr_org)
+        print("dist coeffs: ",c_l_dist)
 
-        print("map",map2_l)
-        l_dst = cv.remap(img_l,map1_l,map2_l,cv.INTER_LINEAR)
-        plt.imshow(img_l)
-        plt.imshow(l_dst)
+        map1_l,map2_l = cv.initUndistortRectifyMap(c_l_intr_org,c_l_dist,R1,P1,(img_size[0],img_size[1]),cv.CV_32FC1)
+        map1_r,map2_r = cv.initUndistortRectifyMap(c_r_intr_org,c_r_dist,R2,P2,(img_size[0],img_size[1]),cv.CV_32FC1)
+
+
+        l_rect_undist = cv.remap(img_l,map1_l,map2_l,cv.INTER_LINEAR)
+        r_rect_undist = cv.remap(img_r,map1_r,map2_r,cv.INTER_LINEAR)
+        #cv.imshow("img_r",r_rect_undist)
+        #cv.imshow("img_l",l_rect_undist)
+        #cv.waitKey(0)
+        #cv.destroyAllWindows()
 
 
     if SGM123:
-        SGM(img_l_undist,img_r_undist)
+        SGM(l_rect_undist,r_rect_undist)
     if testing:
         m_idx = []
         s_idx = []

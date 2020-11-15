@@ -222,12 +222,11 @@ def rectifyImage(intr_mat_l,intr_mat_r,dist_coeffs_l,dist_coeffs_r,img_size):
     t = np.array([-1800.0,0.0,0.0]).T
     print(t.shape)
     
-    #R1, R2, P1, P2, Q, roi_left, roi_right = cv.stereoRectify(intr_mat_l,dist_coeffs_l,intr_mat_r,dist_coeffs_r,(img_size[0],img_size[1]),R1,t)
-    
-    ans = cv.stereoRectify(intr_mat_l,dist_coeffs_l,intr_mat_r,dist_coeffs_r,(img_size[0],img_size[1]),R1,t)
+    R1, R2, P1, P2, Q, roi_left, roi_right = cv.stereoRectify(intr_mat_l, dist_coeffs_l,intr_mat_r,dist_coeffs_r,(img_size[0],img_size[1]),R1,t)
+    #ans = cv.stereoRectify(intr_mat_l,dist_coeffs_l,intr_mat_r,dist_coeffs_r,(img_size[0],img_size[1]),R1,t)
 
-    for k,elem in enumerate(ans):
-        print("ANS[] : {0}".format(ans[k]))
+    #for k,elem in enumerate(ans):
+    #    print("ANS[] : {0}".format(ans[k]))
 
 
 
