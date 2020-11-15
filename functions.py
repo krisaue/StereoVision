@@ -176,17 +176,17 @@ def SGM(imgL,imgR):
     imgR = cv.pyrDown(imgR)
    
    
-    window_size = 8
-    min_disp = -10
-    num_disp = 32
+    window_size = 2
+    min_disp = 0
+    num_disp = 100
     stereo = cv.StereoSGBM_create(minDisparity = min_disp,
         numDisparities = num_disp,
-        blockSize = 6,
+        blockSize = 15,
         P1 = 8*3*window_size**2,
         P2 = 32*3*window_size**2,
-        disp12MaxDiff = 1,
-        uniquenessRatio = 10,
-        speckleWindowSize = 200,
+        disp12MaxDiff = -1,
+        uniquenessRatio = 15,
+        speckleWindowSize = 100,
         speckleRange = 1
     )
 
@@ -201,7 +201,7 @@ def SGM(imgL,imgR):
                     [0, 0, 0,     -f], # so that y-axis looks up
                     [0, 0, 1,      0]])
     points = cv.reprojectImageTo3D(disp, Q)
-
+    print("shape of points var:",points.shape)
     colors = cv.cvtColor(imgL, cv.COLOR_BGR2RGB)
     mask = disp > disp.min()
     out_points = points[mask]

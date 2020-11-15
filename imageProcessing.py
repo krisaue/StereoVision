@@ -130,8 +130,11 @@ if __name__ == "__main__":
 
         l_rect_undist = cv.remap(img_l,map1_l,map2_l,cv.INTER_LINEAR)
         r_rect_undist = cv.remap(img_r,map1_r,map2_r,cv.INTER_LINEAR)
+        
         #cv.imshow("img_r",r_rect_undist)
         #cv.imshow("img_l",l_rect_undist)
+        #cv.imwrite("img_r_1511.png",r_rect_undist)
+        #cv.imwrite("img_l_1511.png",l_rect_undist)
         #cv.waitKey(0)
         #cv.destroyAllWindows()
 
